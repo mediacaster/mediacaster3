@@ -55,14 +55,16 @@
 				echo "\n";
 			}else{
 				//$response["error"] = TRUE;
-				$response["pesan_error"] = $Login['message'];
+				echo $Login['message'];
+				echo "\n";
 				//$response["error_type"] = $Login['error_type'];
-				echo json_encode($response);
+				//echo json_encode($response);
 			}
 		}else if($pilihan == '2'){
 			
 		}else{
 			echo 'Pilihan Salah';
+			echo "\n";
 		}
 	}else{
 		echo $result->pesan_error;
