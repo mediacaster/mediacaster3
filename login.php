@@ -49,8 +49,13 @@
 					];
 				$result = Submit('http://gramcaster.com/app/v3/IPA.php',$data2);
 				$result = json_decode($result);
-				echo $result->pesan;
-				echo "\n";
+				if($result->error == false){
+					echo $result->pesan;
+					echo "\n";
+				}else{
+					echo $result->pesan_error;
+					echo "\n";
+				}
 			}else{
 				echo $Login['message'];
 				echo "\n";
