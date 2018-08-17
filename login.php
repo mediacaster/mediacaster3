@@ -16,8 +16,8 @@
 		];
 	$result = Submit('http://gramcaster.com/app/v3/IPA.php',$data);
 	$result = json_decode($result);
-	if(!$result->error){
-	echo $result->pesan;
+	if($result->error == false){
+		echo $result->pesan;
 		echo "\n";
 		echo "1. Tambah Akun Utama\n";
 		echo "2. Tambah Akun Arisan\n";
