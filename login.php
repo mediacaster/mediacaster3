@@ -2,9 +2,9 @@
 	//$data = Login('roniisuryadii','Roni17081995');
 	//print_r($data);
 	echo "Gramcaster Login\n";
-	echo "Username Gramcaster : ";
+	echo "Username Gramcaster Anda : ";
 	$ugc=trim(fgets(STDIN));
-	echo "Password Gramcaster : ";
+	echo "Password Gramcaster Anda : ";
 	$pgc=trim(fgets(STDIN));
 	echo "Loading ... \n";
 	$data = [
@@ -16,6 +16,25 @@
 	$result = json_decode($result);
 	if(!$result->error){
 		echo $result->pesan;
+		echo "\n";
+		echo "1. Tambah Akun Utama\n";
+		echo "2. Tambah Akun Arisan\n";
+		echo "Pilihan : ";
+		$pilihan=trim(fgets(STDIN));
+		if($pilihan == '1'){
+			echo "\n";
+			echo "Menambahkan Akun Utama\n";
+			echo "Username Instagram Anda : ";
+			$uig=trim(fgets(STDIN));
+			echo "Password Instagram Anda : ";
+			$pig=trim(fgets(STDIN));
+			$result = Login($uig,$pig);
+			print_r($result);
+		}else if($pilihan == '2'){
+			
+		}else{
+			echo 'Pilihan Salah';
+		}
 	}else{
 		echo $result->pesan_error;
 	}
