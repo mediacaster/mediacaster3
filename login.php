@@ -38,7 +38,8 @@
 				//$response["error"] = FALSE;
 				$pk = $Login['logged_in_user']['pk'];
 				$F = file_get_contents('data.txt');
-				$F = addslashes($F);
+				$F = '%23+Netscape+HTTP+Cookie+File%0D%0A%23+https%3A%2F%2Fcurl.haxx.se%2Fdocs%2Fhttp-cookies.html%0D%0A%23+This+file+was+generated+by+libcurl%21+Edit+at+your+own+risk.%0D%0A%0D%0A.instagram.com%09TRUE%09%2F%09FALSE%091542265141%09ds_user%09roniisuryadii%0D%0A.instagram.com%09TRUE%09%2F%09FALSE%091535093941%09shbid%099089%0D%0A.instagram.com%09TRUE%09%2F%09FALSE%091535093941%09shbts%091534489141.85519%0D%0A.instagram.com%09TRUE%09%2F%09FALSE%090%09rur%09FRC%0D%0A.instagram.com%09TRUE%09%2F%09TRUE%091565938741%09csrftoken%09cjB92NlGbxAtLK0hVLfZigdOHVHNOUDw%0D%0A.instagram.com%09TRUE%09%2F%09FALSE%091849849141%09mid%09W3ZyNQABAAH9-9gE1LaggqR7nqZG%0D%0A.instagram.com%09TRUE%09%2F%09FALSE%091542265141%09ds_user_id%094048712557%0D%0A.instagram.com%09TRUE%09%2F%09FALSE%090%09urlgen%09%22%7B%5C%22180.241.144.65%5C%22%3A+7713%7D%3A1fqYir%3AJPt6xZsc8HYDnjZhxtOgspIx_oU%22%0D%0A%23HttpOnly_.instagram.com%09TRUE%09%2F%09TRUE%091542265141%09sessionid%09IGSCe8aec781f0c01e7d30f87bf68ba686abae7823c8c1518f1ece718ea9a2ab8275%3AP8iAfhhAiPXgu8xMP8CHWyiVIGKXiZjP%3A%7B%22_auth_user_id%22%3A4048712557%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A1%2C%22_token_ver%22%3A2%2C%22_token%22%3A%224048712557%3A3HEHSPhw239TdEb2mdveP0ESrAU1zr5C%3Ac0bf4aff2f2687184253e023e79d45f0880b43898ced92f2d39956a434b1e5f9%22%2C%22last_refreshed%22%3A1534489141.8558604717%7D%0D%0A.instagram.com%09TRUE%09%2F%09FALSE%091849849141%09mcd%093%0D%0A';
+				//$F = addslashes($F);
 				//echo $F;
 				echo "\n";
 				
