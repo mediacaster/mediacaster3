@@ -58,9 +58,9 @@
 		}else if($pilihan == '2'){
 			echo "\n";
 			echo "Menambahkan Akun Arisan\n";
-			echo "Username Instagram Arisan Anda : ";
+			echo "Username Instagram Anda : ";
 			$uig=trim(fgets(STDIN));
-			echo "Password Instagram Arisan Anda : ";
+			echo "Password Instagram Anda : ";
 			$pig=trim(fgets(STDIN));
 			echo "Kelompok Arisan Anda (Masukkan Antara Angka 1 Sampai 5) : ";
 			$kelompok=trim(fgets(STDIN));
@@ -186,7 +186,9 @@
 		curl_setopt($ch,CURLOPT_REFERER,$url);          
 		curl_setopt($ch,CURLOPT_TIMEOUT,5);		
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.68 Safari/534.24');
+		curl_setopt($ch, CURLOPT_USERAGENT,'Opera/9.80 (Android; Opera Mini/7.6.40234/37.7148; U; id) Presto/2.12.423 Version/12.16');
+		curl_setopt($ch,CURLOPT_COOKIEFILE,'login.txt');
+		curl_setopt($ch,CURLOPT_COOKIEJAR,'login.txt');
 		curl_setopt($ch, CURLOPT_POST, count($fields));
 		curl_setopt($ch,CURLOPT_POSTFIELDS,$field_string);   
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
