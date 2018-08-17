@@ -14,6 +14,10 @@
 		];
 	$result = Submit('http://gramcaster.com/app/v3/IPA.php',$data);
 	$result = json_decode($result);
+	$agent = $result->agent;
+	$device_id = $result->device_id;
+	$ig_sig_key = $result->ig_sig_key;
+	$sig_key_version = $result->sig_key_version;
 	if($result->error == false){
 		echo $result->pesan;
 		echo "\n";
@@ -29,14 +33,8 @@
 			echo "Password Instagram Anda : ";
 			$pig=trim(fgets(STDIN));
 			
-			$agent = $result->agent;
-			$device_id = $result->device_id;
-			$ig_sig_key = $result->ig_sig_key;
-			$sig_key_version = $result->sig_key_version;
-			
 			$Login = Login($uig,$pig,$agent,$device_id,$ig_sig_key,$sig_key_version);
 			if($Login['status'] == "ok"){
-				//$response["error"] = FALSE;
 				$pk = $Login['logged_in_user']['pk'];
 				$F = file_get_contents('data.txt');
 				$F = urlencode($F);
@@ -54,14 +52,45 @@
 				echo $result->pesan;
 				echo "\n";
 			}else{
-				//$response["error"] = TRUE;
 				echo $Login['message'];
 				echo "\n";
-				//$response["error_type"] = $Login['error_type'];
-				//echo json_encode($response);
 			}
 		}else if($pilihan == '2'){
-			
+			echo "\n";
+			echo "Menambahkan Akun Arisan\n";
+			echo "Username Instagram Anda : ";
+			$uig=trim(fgets(STDIN));
+			echo "Password Instagram Anda : ";
+			$pig=trim(fgets(STDIN));
+			echo "Kelompok Arisan Anda (Masukkan Antara Angka 1 Sampai 5) : ";
+			$kelompok=trim(fgets(STDIN));
+			if($kelompok > 5 and $kelompok < 1){
+				echo "Salah Memasukkan Kelompok\n";
+			}else{
+				$Login = Login($uig,$pig,$agent,$device_id,$ig_sig_key,$sig_key_version);
+				if($Login['status'] == "ok"){
+					$pk = $Login['logged_in_user']['pk'];
+					$F = file_get_contents('data.txt');
+					$F = urlencode($F);
+					echo "\n";
+					
+					$data2 = [
+							'status'            => 'arisan',
+							'username'          => $ugc,
+							'usernameig'            => $uig,
+							'pk'				=> $pk,
+							'data'				=> $F,
+							'kelompok'			=> $kelompok,
+						];
+					$result = Submit('http://gramcaster.com/app/v3/IPA.php',$data2);
+					$result = json_decode($result);
+					echo $result->pesan;
+					echo "\n";
+				}else{
+					echo $Login['message'];
+					echo "\n";
+				}
+			}
 		}else{
 			echo 'Pilihan Salah';
 			echo "\n";
@@ -108,13 +137,6 @@
 
         return $type ? $uuid : str_replace('-', '', $uuid);
     }
-	/*
-	function generateDeviceId($seed)
-    {
-        $volatile_seed = filemtime(__DIR__);
-        return 'android-'.substr(md5($seed.$volatile_seed), 16);
-    }
-	*/
 	function request($endpoint, $userig, $agent, $post = null)
     {
         $headers = [
