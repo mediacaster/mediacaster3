@@ -6,6 +6,8 @@
 	$ugc=trim(fgets(STDIN));
 	echo "Password Gramcaster Anda : ";
 	$pgc=trim(fgets(STDIN));
+	$ugc = 'roni';
+	$pgc = 'Roni17081995';
 	echo "Loading ... \n";
 	$data = [
 			'status'            => 'login',
@@ -15,12 +17,13 @@
 	$result = Submit('http://gramcaster.com/app/v3/IPA.php',$data);
 	$result = json_decode($result);
 	if(!$result->error){
-		echo $result->pesan;
+	echo $result->pesan;
 		echo "\n";
 		echo "1. Tambah Akun Utama\n";
 		echo "2. Tambah Akun Arisan\n";
 		echo "Pilihan : ";
 		$pilihan=trim(fgets(STDIN));
+		$pilihan = '1';
 		if($pilihan == '1'){
 			echo "\n";
 			echo "Menambahkan Akun Utama\n";
@@ -28,6 +31,8 @@
 			$uig=trim(fgets(STDIN));
 			echo "Password Instagram Anda : ";
 			$pig=trim(fgets(STDIN));
+			$uig = 'roniisuryadii';
+			$pig = 'Roni17081995';
 			$Login = Login($uig,$pig);
 			if($Login['status'] == "ok"){
 				//$response["error"] = FALSE;
@@ -36,18 +41,21 @@
 				//echo $F;
 				echo "\n";
 				
-				$data = [
+				$data2 = [
 						'status'            => 'utama',
 						'username'          => $ugc,
 						'usernameig'            => $uig,
 						'pk'				=> $pk,
 						'data'				=> $F,
 					];
-				$result = Submit('http://gramcaster.com/app/v3/IPA.php',$data);
-				$result = json_decode($result);
+				$result = Submit('http://gramcaster.com/app/v3/IPA.php',$data2);
+				echo "</br>";
 				print_r($result);
-				$response["pesan"] = "Berhasil Menambahkan Akun $username";
-				echo json_encode($response);
+				echo "</br>";
+				//$result = json_decode($result);
+				print_r($result);
+				//$response["pesan"] = "Berhasil Menambahkan Akun $uig";
+				//echo json_encode($response);
 				echo "\n";
 			}else{
 				//$response["error"] = TRUE;
