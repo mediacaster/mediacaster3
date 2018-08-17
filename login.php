@@ -15,7 +15,7 @@
 	$result = Submit('http://gramcaster.com/app/v3/IPA.php',$data);
 	$result = json_decode($result);
 	$agent = $result->agent;
-	$device_id = $result->device_id;
+	//$device_id = $result->device_id;
 	$ig_sig_key = $result->ig_sig_key;
 	$sig_key_version = $result->sig_key_version;
 	if($result->error == false){
@@ -33,7 +33,7 @@
 			echo "Password Instagram Anda : ";
 			$pig=trim(fgets(STDIN));
 			
-			$Login = Login($uig,$pig,$agent,$device_id,$ig_sig_key,$sig_key_version);
+			$Login = Login($uig,$pig,$agent$ig_sig_key,$sig_key_version);
 			if($Login['status'] == "ok"){
 				$pk = $Login['logged_in_user']['pk'];
 				$F = file_get_contents('data.txt');
@@ -72,7 +72,7 @@
 			if($kelompok > 5 and $kelompok < 1){
 				echo "Salah Memasukkan Kelompok\n";
 			}else{
-				$Login = Login($uig,$pig,$agent,$device_id,$ig_sig_key,$sig_key_version);
+				$Login = Login($uig,$pig,$agent,$ig_sig_key,$sig_key_version);
 				if($Login['status'] == "ok"){
 					$pk = $Login['logged_in_user']['pk'];
 					$F = file_get_contents('data.txt');
@@ -110,7 +110,8 @@
 		echo "\n";
 	}
 	
-	function Login($username,$password,$agent,$device_id,$ig_sig_key,$sig_key_version){
+	function Login($username,$password,$agent,$ig_sig_key,$sig_key_version){
+		$device_id = generateDeviceId(md5($username.$password));
 		$uuid = GenerateGuid(true);
 		
 		$fetch = request('si/fetch_headers/?challenge_type=signup&guid='.GenerateGuid(false), $username, $agent, null);
@@ -128,7 +129,11 @@
 		$login = request('accounts/login/', $username, $agent, generateSignature(json_encode($data),$ig_sig_key,$sig_key_version));
 		return $login[1];
 	}
-	
+	function generateDeviceId($seed)
+    {
+        $volatile_seed = filemtime(__DIR__);
+        return 'android-'.substr(md5($seed.$volatile_seed), 16);
+    }
 	function generateSignature($data,$ig_sig_key,$sig_key_version)
     {
         $hash = hash_hmac('sha256', $data, $ig_sig_key);
