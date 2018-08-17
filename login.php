@@ -31,12 +31,24 @@
 			$Login = Login($uig,$pig);
 			if($Login['status'] == "ok"){
 				//$response["error"] = FALSE;
-				//$response["pk"] = $pk = $Login['logged_in_user']['pk'];
+				$pk = $Login['logged_in_user']['pk'];
 				$F = file_get_contents('data.txt');
-				echo $F;
+				//echo $F;
 				echo "\n";
+				
+				$data = [
+						'status'            => 'utama',
+						'username'          => $ugc,
+						'usernameig'            => $uig,
+						'pk'				=> $pk,
+						'data'				=> $F,
+					];
+				$result = Submit('http://gramcaster.com/app/v3/IPA.php',$data);
+				$result = json_decode($result);
+				print_r($result);
 				$response["pesan"] = "Berhasil Menambahkan Akun $username";
 				echo json_encode($response);
+				echo "\n";
 			}else{
 				//$response["error"] = TRUE;
 				$response["pesan_error"] = $Login['message'];
