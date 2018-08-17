@@ -33,7 +33,7 @@
 			echo "Password Instagram Anda : ";
 			$pig=trim(fgets(STDIN));
 			
-			$Login = Login($uig,$pig,$agent$ig_sig_key,$sig_key_version);
+			$Login = Login($uig,$pig,$agent,$ig_sig_key,$sig_key_version);
 			if($Login['status'] == "ok"){
 				$pk = $Login['logged_in_user']['pk'];
 				$F = file_get_contents('data.txt');
