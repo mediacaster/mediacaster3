@@ -32,6 +32,9 @@
 			if($Login['status'] == "ok"){
 				//$response["error"] = FALSE;
 				//$response["pk"] = $pk = $Login['logged_in_user']['pk'];
+				$F = file_get_contents('data.txt');
+				echo $F;
+				echo "\n";
 				$response["pesan"] = "Berhasil Menambahkan Akun $username";
 				echo json_encode($response);
 			}else{
@@ -67,11 +70,7 @@
 			'password'            => $password,
 			'login_attempt_count' => '0',
 		];		
-		echo "<pre>";
-		print_r($data);
-		echo "</pre>";
 		$login = request('accounts/login/', $username, $agent, generateSignature(json_encode($data)));
-		print_r($login);
 		return $login[1];
 	}
 	
