@@ -28,8 +28,18 @@
 			$uig=trim(fgets(STDIN));
 			echo "Password Instagram Anda : ";
 			$pig=trim(fgets(STDIN));
-			$result = Login($uig,$pig);
-			print_r($result);
+			$Login = Login($uig,$pig);
+			if($Login['status'] == "ok"){
+				//$response["error"] = FALSE;
+				//$response["pk"] = $pk = $Login['logged_in_user']['pk'];
+				$response["pesan"] = "Berhasil Menambahkan Akun $username";
+				echo json_encode($response);
+			}else{
+				//$response["error"] = TRUE;
+				$response["pesan_error"] = $Login['message'];
+				//$response["error_type"] = $Login['error_type'];
+				echo json_encode($response);
+			}
 		}else if($pilihan == '2'){
 			
 		}else{
@@ -37,6 +47,7 @@
 		}
 	}else{
 		echo $result->pesan_error;
+		echo "\n";
 	}
 	
 	function Login($username,$password){
@@ -45,7 +56,6 @@
 		$agent = 'Instagram 12.0.0.7.91 Android (18/4.3; 320dpi; 720x1280; Xiaomi; HM 1SW; armani; qcom; en_US';
 		
 		$fetch = request('si/fetch_headers/?challenge_type=signup&guid='.GenerateGuid(false), $username, $agent, null);
-		print_r($fetch);
         preg_match('#Set-Cookie: csrftoken=([^;]+)#', $fetch[0], $token);
 		 
 		$data = [
