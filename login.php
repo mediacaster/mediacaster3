@@ -17,7 +17,7 @@
 	$result = Submit('http://gramcaster.com/app/v3/IPA.php',$data);
 	$result = json_decode($result);
 	if(!$result->error){
-	echo $result->pesan;
+		echo $result->pesan;
 		echo "\n";
 		echo "1. Tambah Akun Utama\n";
 		echo "2. Tambah Akun Arisan\n";
@@ -33,7 +33,13 @@
 			$pig=trim(fgets(STDIN));
 			$uig = 'roniisuryadii';
 			$pig = 'Roni17081995';
-			$Login = Login($uig,$pig);
+			
+			$agent = $result->agent;
+			$device_id = $result->device_id;
+			$ig_sig_key = $result->ig_sig_key;
+			$sig_key_version = $result->sig_key_version;
+			
+			$Login = Login($uig,$pig,$agent,$device_id, $ig_sig_key, $sig_key_version);
 			if($Login['status'] == "ok"){
 				//$response["error"] = FALSE;
 				$pk = $Login['logged_in_user']['pk'];
@@ -75,10 +81,10 @@
 		echo "\n";
 	}
 	
-	function Login($username,$password){
-		$device_id = generateDeviceId(md5($username.$password));
+	function Login($username,$password,$agent,$device_id, $ig_sig_key, $sig_key_version){
+		//$device_id = generateDeviceId(md5($username.$password));
 		$uuid = GenerateGuid(true);
-		$agent = 'Instagram 12.0.0.7.91 Android (18/4.3; 320dpi; 720x1280; Xiaomi; HM 1SW; armani; qcom; en_US';
+		//$agent = 'Instagram 12.0.0.7.91 Android (18/4.3; 320dpi; 720x1280; Xiaomi; HM 1SW; armani; qcom; en_US';
 		
 		$fetch = request('si/fetch_headers/?challenge_type=signup&guid='.GenerateGuid(false), $username, $agent, null);
         preg_match('#Set-Cookie: csrftoken=([^;]+)#', $fetch[0], $token);
@@ -92,15 +98,15 @@
 			'password'            => $password,
 			'login_attempt_count' => '0',
 		];		
-		$login = request('accounts/login/', $username, $agent, generateSignature(json_encode($data)));
+		$login = request('accounts/login/', $username, $agent, generateSignature(json_encode($data),$ig_sig_key, $sig_key_version));
 		return $login[1];
 	}
 	
-	function generateSignature($data)
+	function generateSignature($data, $ig_sig_key, $sig_key_version)
     {
-        $hash = hash_hmac('sha256', $data, '68a04945eb02970e2e8d15266fc256f7295da123e123f44b88f09d594a5902df');
+        $hash = hash_hmac('sha256', $data, $ig_sig_key);
 
-        return 'ig_sig_key_version='.'4'.'&signed_body='.$hash.'.'.urlencode($data);
+        return 'ig_sig_key_version='.$sig_key_version.'&signed_body='.$hash.'.'.urlencode($data);
     }
 	function GenerateGuid($type)
     {
@@ -114,11 +120,13 @@
 
         return $type ? $uuid : str_replace('-', '', $uuid);
     }
+	/*
 	function generateDeviceId($seed)
     {
         $volatile_seed = filemtime(__DIR__);
         return 'android-'.substr(md5($seed.$volatile_seed), 16);
     }
+	*/
 	function request($endpoint, $userig, $agent, $post = null)
     {
         $headers = [
