@@ -38,6 +38,7 @@
 				//$response["error"] = FALSE;
 				$pk = $Login['logged_in_user']['pk'];
 				$F = file_get_contents('data.txt');
+				$F = addslashes($F);
 				//echo $F;
 				echo "\n";
 				
