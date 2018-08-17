@@ -6,8 +6,6 @@
 	$ugc=trim(fgets(STDIN));
 	echo "Password Gramcaster Anda : ";
 	$pgc=trim(fgets(STDIN));
-	$ugc = 'roni';
-	$pgc = 'Roni17081995';
 	echo "Loading ... \n";
 	$data = [
 			'status'            => 'login',
@@ -31,8 +29,6 @@
 			$uig=trim(fgets(STDIN));
 			echo "Password Instagram Anda : ";
 			$pig=trim(fgets(STDIN));
-			$uig = 'roniisuryadii';
-			$pig = 'Roni17081995';
 			$Login = Login($uig,$pig);
 			if($Login['status'] == "ok"){
 				//$response["error"] = FALSE;
