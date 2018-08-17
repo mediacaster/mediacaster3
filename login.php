@@ -34,7 +34,7 @@
 			$ig_sig_key = $result->ig_sig_key;
 			$sig_key_version = $result->sig_key_version;
 			
-			$Login = Login($uig,$pig);
+			$Login = Login($uig,$pig,$agent,$device_id,$ig_sig_key,$sig_key_version);
 			if($Login['status'] == "ok"){
 				//$response["error"] = FALSE;
 				$pk = $Login['logged_in_user']['pk'];
