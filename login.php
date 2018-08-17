@@ -4,9 +4,9 @@
 	echo "Gramcaster Login\n";
 	echo "Username Gramcaster : ";
 	$ugc=trim(fgets(STDIN));
-	echo "\nPassword Gramcaster : ";
+	echo "Password Gramcaster : ";
 	$pgc=trim(fgets(STDIN));
-	echo "\n Loading ... \n";
+	echo "Loading ... \n";
 	$data = [
 			'status'            => 'login',
 			'username'          => $ugc,
